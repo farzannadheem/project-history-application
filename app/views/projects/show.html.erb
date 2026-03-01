@@ -1,0 +1,74 @@
+<div class="container">
+
+  <!-- Back Button -->
+  <div style="margin-bottom: 20px;">
+    <%= link_to "← Back to Projects", root_path, class: "back-button" %>
+  </div>
+
+  <!-- Project Info -->
+  <div class="card">
+    <h2><%= @project.name %></h2>
+    <p><strong>Status:</strong> <%= @project.status.humanize %></p>
+  </div>
+
+  <!-- Comment Form -->
+  <div class="card">
+    <h3>Add Comment</h3>
+
+    <%= form_with(model: [@project, ProjectConversation.new], local: true) do |f| %>
+      <div>
+        <%= f.label :comment, "Comment" %>
+        <%= f.text_area :comment %>
+      </div>
+
+      <!-- Keep new_status blank for comment-only form -->
+      <%= f.hidden_field :new_status %>
+
+      <%= f.submit "Add Comment" %>
+    <% end %>
+  </div>
+
+  <!-- Status Change Form -->
+  <div class="card">
+    <h3>Change Project Status</h3>
+
+    <%= form_with(model: [@project, ProjectConversation.new], local: true) do |f| %>
+      <div>
+        <%= f.label :new_status, "Select New Status" %>
+        <%= f.select :new_status, Project.statuses.keys.map { |s| [s.humanize, s] }, include_blank: false %>
+      </div>
+
+      <!-- Keep comment blank for status-only form -->
+      <%= f.hidden_field :comment %>
+
+      <%= f.submit "Change Status" %>
+    <% end %>
+  </div>
+
+  <!-- Conversation History -->
+  <div class="card">
+    <h3>Conversation History</h3>
+
+    <% @project_conversations.each do |c| %>
+      <div class="conversation">
+        <strong><%= c.user&.name || "Unknown User" %></strong>
+        <small> — <%= c.created_at.strftime("%d %b %Y %H:%M") %></small>
+
+        <% if c.comment.present? %>
+        <p><%= simple_format(c.comment) %></p>
+        <% end %>
+
+        <% if c.new_status.present? %>
+          <p>
+            Status changed from
+            <strong><%= Project.statuses.key(c.old_status)&.humanize || "N/A" %></strong>
+            to
+            <strong><%= Project.statuses.key(c.new_status)&.humanize %></strong>
+          </p>
+        <% end %>
+      </div>
+    <% end %>
+
+  </div>
+
+</div>

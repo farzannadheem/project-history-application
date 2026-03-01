@@ -1,0 +1,104 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>Forgot your password?</h2>
+
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="field">
+        <%= f.label :email, "Enter your email" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "you@example.com" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Send me password reset instructions" %>
+      </div>
+    <% end %>
+
+    <div class="extra-links">
+      <%= link_to "Back to login", new_session_path(resource_name) %>
+    </div>
+  </div>
+</div>
+
+<style>
+  body {
+    background: #f7f9fc;
+    font-family: Arial, sans-serif;
+  }
+
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .login-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 8px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+
+  .login-card h2 {
+    margin-bottom: 30px;
+    color: #2c3e50;
+  }
+
+  .login-card .field {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  .login-card .field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #34495e;
+  }
+
+  .login-card .field input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d1d9e6;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .login-card .actions {
+    margin-top: 10px;
+  }
+
+  .login-card .actions input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .login-card .actions input[type="submit"]:hover {
+    background-color: #1a252f;
+  }
+
+  .login-card .extra-links {
+    margin-top: 15px;
+  }
+
+  .login-card .extra-links a {
+    color: #2980b9;
+    text-decoration: none;
+    font-size: 14px;
+  }
+
+  .login-card .extra-links a:hover {
+    text-decoration: underline;
+  }
+</style>

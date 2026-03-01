@@ -1,0 +1,148 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>Login</h2>
+
+    <!-- Flash messages for errors or notices -->
+    <% if flash[:alert] %>
+      <div class="flash-alert"><%= flash[:alert] %></div>
+    <% end %>
+    <% if flash[:notice] %>
+      <div class="flash-notice"><%= flash[:notice] %></div>
+    <% end %>
+    
+    <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), local: true) do |f| %>
+      <div class="field">
+        <%= f.label :email %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Enter your email" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: "current-password", placeholder: "Enter your password" %>
+      </div>
+
+      <% if devise_mapping.rememberable? -%>
+        <div class="field remember">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+        </div>
+      <% end -%>
+
+      <div class="actions">
+        <%= f.submit "Log in" %>
+      </div>
+    <% end %>
+
+    <div class="extra-links">
+      <%= link_to "Sign Up", new_registration_path(resource_name) %>
+    </div>
+  </div>
+</div>
+
+<style>
+  body {
+    background: #f7f9fc;
+    font-family: Arial, sans-serif;
+  }
+
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .login-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 8px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+
+  .login-card h2 {
+    margin-bottom: 30px;
+    color: #2c3e50;
+  }
+
+  .login-card .field {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  .login-card .field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #34495e;
+  }
+
+  .login-card .field input[type="email"],
+  .login-card .field input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d1d9e6;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .login-card .field.remember {
+    display: flex;
+    align-items: center;
+  }
+
+  .login-card .actions {
+    margin-top: 10px;
+  }
+
+  .login-card .actions input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .login-card .actions input[type="submit"]:hover {
+    background-color: #1a252f;
+  }
+
+  .login-card .extra-links {
+    margin-top: 15px;
+  }
+
+  .login-card .extra-links a {
+    color: #2980b9;
+    text-decoration: none;
+    font-size: 14px;
+  }
+
+  .login-card .extra-links a:hover {
+    text-decoration: underline;
+  }
+
+  .flash-alert {
+    background-color: #f8d7da;
+    color: #842029;
+    border: 1px solid #f5c2c7;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .flash-notice {
+    background-color: #cff4fc;
+    color: #055160;
+    border: 1px solid #b6effb;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+</style>

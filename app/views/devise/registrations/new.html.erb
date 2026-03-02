@@ -19,7 +19,7 @@
         <%= f.label :name, "Name" %>
         <%= f.text_field :name, placeholder: "Enter your name" %>
       </div>
-      
+
       <div class="field">
         <%= f.label :email, "Email" %>
         <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Enter your email" %>
@@ -106,6 +106,7 @@
     color: #34495e;
   }
 
+  .login-card .field input[type="text"],
   .login-card .field input[type="email"],
   .login-card .field input[type="password"] {
     width: 100%;
